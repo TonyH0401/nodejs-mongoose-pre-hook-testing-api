@@ -13,6 +13,7 @@ const chalk = require("chalk");
 // --------------------------
 // Section: Custome Utils Requirements
 // --------------------------
+const { reqLoggerTiny, reqLoggerDev } = require("./utils/requestLogger");
 
 // --------------------------
 // Section: Environment Variables
@@ -33,6 +34,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(helmet());
+app.use(reqLoggerDev);
 
 // --------------------------
 // Section: Default Router(s)
