@@ -14,6 +14,7 @@ const chalk = require("chalk");
 // Section: Custome Utils Requirements
 // --------------------------
 const { reqLoggerTiny, reqLoggerDev } = require("./utils/requestLogger");
+const { limit100Req15Min, limit10Req5Min } = require("./utils/requestLimiter");
 
 // --------------------------
 // Section: Environment Variables
@@ -39,7 +40,7 @@ app.use(reqLoggerDev);
 // --------------------------
 // Section: Default Router(s)
 // --------------------------
-app.get("/", (req, res) => {
+app.get("/", limit10Req5Min, (req, res) => {
   return res.status(200).json({
     code: 1,
     success: true,
