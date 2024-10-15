@@ -51,6 +51,9 @@ app.get("/", limit10Req5Min, (req, res) => {
 // --------------------------
 // Section: API Versioning Router(s)
 // --------------------------
+// API V1 Routers: /api/v1/...
+const v1API = require("./api/v1/routes");
+app.use("/api/v1", v1API);
 
 // --------------------------
 // Section: Default Error Handlers
