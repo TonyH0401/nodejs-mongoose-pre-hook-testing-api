@@ -11,7 +11,7 @@ const path = require("path");
 const chalk = require("chalk");
 
 // --------------------------
-// Section: Custome Utils Requirements
+// Section: Custom Utils Requirements
 // --------------------------
 const { reqLoggerTiny, reqLoggerDev } = require("./utils/requestLogger");
 const { limit100Req15Min, limit10Req5Min } = require("./utils/requestLimiter");
