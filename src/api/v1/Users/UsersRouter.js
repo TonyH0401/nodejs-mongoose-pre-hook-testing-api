@@ -23,7 +23,7 @@ router.route("/").get((req, res) => {
     message: "Default branch 🥚 of /users! ",
   });
 });
-router.route("/user").post(createUser);
+router.route("/create").post(createUser);
 
 // --------------------------
 // Section: Users Error Handlers
