@@ -14,12 +14,15 @@ const validator = require("validator");
 // --------------------------
 // Section: Data Validators
 // --------------------------
-// function (params) {
-    
-// }
-
+function isValidEmail(userEmail) {
+  const options = {
+    host_whitelist: ["gmail.com", "outlook.com"],
+    allow_utf8_local_part: false,
+  };
+  return validator.isEmail(userEmail, options);
+}
 
 // --------------------------
 // Section: Exports
 // --------------------------
-module.exports = {};
+module.exports = { isValidEmail };
