@@ -7,6 +7,7 @@ const path = require("path");
 // --------------------------
 // Section: Custom Utils Requirements
 // --------------------------
+const { isValidEmail } = require("../../../utils/dataValidator");
 
 // --------------------------
 // Section: Custom Middlewares
@@ -24,6 +25,19 @@ const UsersModel = require("./UsersModel");
 // --------------------------
 // Section: Users Middlewares
 // --------------------------
+module.exports.validateUser = async (req, res, next) => {
+  const { userAge, userEmail } = req.body;
+  try {
+    if (userAge < 16)
+      return next(createError(500, "User must be at least 16 to participate!"));
+    if (!isValidEmail(userEmail))
+      return next(createError(500, "Invalid email address or email host!"));
+    return next();
+  } catch (error) {
+    return next(createError(500, error.message));
+  }
+};
+
 module.exports.createUser = async (req, res, next) => {
   const { userFullName, userEmail, userAge, userGender, militarySchoolName } =
     req.body;
