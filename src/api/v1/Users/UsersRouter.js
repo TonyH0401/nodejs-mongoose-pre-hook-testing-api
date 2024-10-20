@@ -11,7 +11,7 @@ const createError = require("http-errors");
 // --------------------------
 // Section: Custom Middlewares
 // --------------------------
-const { createUser } = require("./UsersMiddleware");
+const { validateUser, createUser } = require("./UsersMiddleware");
 
 // --------------------------
 // Section: Users Routers
@@ -23,7 +23,7 @@ router.route("/").get((req, res) => {
     message: "Default branch 🥚 of /users! ",
   });
 });
-router.route("/create").post(createUser);
+router.route("/create").post(validateUser, createUser);
 
 // --------------------------
 // Section: Users Error Handlers
