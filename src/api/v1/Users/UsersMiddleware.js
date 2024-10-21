@@ -63,17 +63,17 @@ module.exports.createUser = async (req, res, next) => {
   }
 };
 
-// module.exports.getAllUsers = async (req, res, next) => {
-//   try {
-//     const allUsers = await UsersModel.find({}).limit(5);
-//     return res.status(200).json({
-//       code: 1,
-//       success: true,
-//       message: "All users!",
-//       total: allUsers.length,
-//       data: allUsers,
-//     });
-//   } catch (error) {
-//     return next(createError(500, error.message));
-//   }
-// };
+module.exports.getAllUsers = async (req, res, next) => {
+  try {
+    const allUsers = await UsersModel.find({}).limit(5);
+    return res.status(200).json({
+      code: 1,
+      success: true,
+      message: "All users!",
+      total: allUsers.length,
+      data: allUsers,
+    });
+  } catch (error) {
+    return next(createError(500, error.message));
+  }
+};
