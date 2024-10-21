@@ -28,12 +28,18 @@ const UsersModel = require("./UsersModel");
 module.exports.validateUser = async (req, res, next) => {
   const { userAge, userEmail } = req.body;
   try {
-    if (userAge < 0)
-      return next(createError(500, "User age has invalid value!"));
-    if (userAge < 16)
-      return next(createError(500, "User must be at least 16 to participate!"));
-    if (!isValidEmail(userEmail))
-      return next(createError(500, "Invalid email address or email host!"));
+    if (userAge) {
+      if (userAge < 0)
+        return next(createError(500, "User age has invalid value!"));
+      if (userAge < 16)
+        return next(
+          createError(500, "User must be at least 16 to participate!")
+        );
+    }
+    if (userEmail) {
+      if (!isValidEmail(userEmail))
+        return next(createError(500, "Invalid email address or email host!"));
+    }
     return next();
   } catch (error) {
     return next(createError(500, error.message));
@@ -109,5 +115,30 @@ module.exports.getUserById = async (req, res, next) => {
 };
 
 // module.exports.patchUserById = async (req, res, next) => {
-
-// }
+//   const { userId } = req.params;
+//   const { userFullName, userEmail, userAge, userGender, militarySchoolName } =
+//     req.body;
+//   try {
+//     const userExist = await UsersModel.findById(userId).exec();
+//     if (!userExist)
+//       return next(createError(404, "User doesn't exist for modification!"));
+//     return res.status(201).json({
+//       code: 1,
+//     });
+//     userExist.userFullName = userFullName || userExist.userFullName;
+//     userExist.userEmail = userEmail || userExist.userEmail;
+//     userExist.userAge = userAge || userExist.userAge;
+//     userExist.userGender = userGender || userExist.userGender;
+//     userExist.militarySchoolName =
+//       militarySchoolName || userExist.militarySchoolName;
+//     await userExist.save();
+//     return res.status(200).json({
+//       code: 1,
+//       success: true,
+//       message: "User updated!",
+//       data: userExist,
+//     });
+//   } catch (error) {
+//     return next(createError(500, error.message));
+//   }
+// };
