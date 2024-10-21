@@ -49,12 +49,22 @@ const UsersSchema = new Schema(
 // --------------------------
 // Section: Using '.pre()' Hooks
 // --------------------------
-// UsersModel.pre("save", async function (next) {
-//   try {
-//   } catch (error) {
-//     return next(createError(500, error.message));
-//   }
-// });
+UsersSchema.pre("save", async function (next) {
+  const UsersModel = require("./UsersModel");
+  try {
+    if (!this.isNew) {
+      if (this.isModified("userAge")) {
+        const preModifyUser = await UsersModel.findById(this._id).exec();
+        if (this.userAge < preModifyUser.userAge) {
+          this.militarySchoolName = null;
+        }
+      }
+    }
+    return next(); // this is different from 'next()', this will end the '.pre()' hook
+  } catch (error) {
+    return next(createError(500, error.message));
+  }
+});
 
 // --------------------------
 // Section: Exports
