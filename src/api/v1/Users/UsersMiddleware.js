@@ -90,8 +90,9 @@ module.exports.getUserById = async (req, res, next) => {
     // const userExist = await UsersModel.findOne({ _id: userId }).exec();
     // const userExist = await UsersModel.findOne({ userFullName: userId }).exec();
     const userExist = await UsersModel.findById(userId).select({
-      userGender: 0,
-      militarySchoolName: 0,
+      _id: 1,
+      userFullName: 1,
+      createdAt: 1,
     });
     if (!userExist) return next(createError(404, "User doesn't exist!"));
     return res.status(200).json({
