@@ -61,8 +61,7 @@ UsersSchema.pre("save", async function (next) {
       }
     }
     console.log("First .pre() hook");
-    // return next(); // this is different from 'next()', this will end the '.pre()' hook
-    next()
+    return next(); // this is different from 'next()', this will end the '.pre()' hook
     console.log("After the first")
   } catch (error) {
     return next(createError(500, error.message));
