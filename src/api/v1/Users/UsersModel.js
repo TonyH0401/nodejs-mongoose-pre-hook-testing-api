@@ -60,33 +60,7 @@ UsersSchema.pre("save", async function (next) {
         }
       }
     }
-    console.log("First hook");
-    this.skipNextHook = true;
     return next(); // this is different from 'next()', this will end the '.pre()' hook
-  } catch (error) {
-    return next(createError(500, error.message));
-  }
-});
-UsersSchema.pre("save", async function (next) {
-  try {
-    if (this.skipNextHook) {
-      console.log("Second hook");
-      return next();
-    }
-    console.log("After second hook");
-    return next();
-  } catch (error) {
-    return next(createError(500, error.message));
-  }
-});
-UsersSchema.pre("save", async function (next) {
-  try {
-    if (this.skipNextHook) {
-      console.log("Third hook");
-      return next();
-    }
-    console.log("After third hook");
-    return next();
   } catch (error) {
     return next(createError(500, error.message));
   }
