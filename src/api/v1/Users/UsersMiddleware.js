@@ -28,6 +28,8 @@ const UsersModel = require("./UsersModel");
 module.exports.validateUser = async (req, res, next) => {
   const { userAge, userEmail } = req.body;
   try {
+    if (userAge < 0)
+      return next(createError(500, "User age has invalid value!"));
     if (userAge < 16)
       return next(createError(500, "User must be at least 16 to participate!"));
     if (!isValidEmail(userEmail))
@@ -60,3 +62,18 @@ module.exports.createUser = async (req, res, next) => {
     return next(createError(500, error.message));
   }
 };
+
+// module.exports.getAllUsers = async (req, res, next) => {
+//   try {
+//     const allUsers = await UsersModel.find({}).limit(5);
+//     return res.status(200).json({
+//       code: 1,
+//       success: true,
+//       message: "All users!",
+//       total: allUsers.length,
+//       data: allUsers,
+//     });
+//   } catch (error) {
+//     return next(createError(500, error.message));
+//   }
+// };
