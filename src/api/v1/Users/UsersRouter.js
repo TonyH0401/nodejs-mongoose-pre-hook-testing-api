@@ -17,6 +17,7 @@ const {
   getAllUsers,
   getUserById,
   patchUserById,
+  deleteUserById,
 } = require("./UsersMiddleware");
 
 // --------------------------
@@ -34,7 +35,8 @@ router.route("/all").get(getAllUsers);
 router
   .route("/user/:userId")
   .get(getUserById)
-  .patch(validateUser, patchUserById);
+  .patch(validateUser, patchUserById)
+  .delete(deleteUserById);
 
 // --------------------------
 // Section: Users Error Handlers

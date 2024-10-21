@@ -143,3 +143,20 @@ module.exports.patchUserById = async (req, res, next) => {
     return next(createError(500, error.message));
   }
 };
+
+module.exports.deleteUserById = async (req, res, next) => {
+  const { userId } = req.params;
+  try {
+    const userDeleted = await UsersModel.findByIdAndDelete(userId).exec();
+    if (!userDeleted)
+      return next(createError(404, "User not found for deletion!"));
+    return res.status(200).json({
+      code: 1,
+      success: true,
+      message: "User deleted!",
+      data: userDeleted,
+    });
+  } catch (error) {
+    return next(createError(500, error.message));
+  }
+};
