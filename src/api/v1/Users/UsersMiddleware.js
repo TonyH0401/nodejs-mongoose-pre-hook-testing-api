@@ -64,13 +64,18 @@ module.exports.createUser = async (req, res, next) => {
 };
 
 module.exports.getAllUsers = async (req, res, next) => {
+  const pageNumber = Number(req.query.page) || 0;
+  const docPerPage = 3;
+  const skipDocs = pageNumber * docPerPage;
   try {
-    const allUsers = await UsersModel.find({}).limit(5);
+    const allUsers = await UsersModel.find({})
+      .sort({ userFullName: 1 })
+      .skip(skipDocs)
+      .limit(docPerPage)
     return res.status(200).json({
       code: 1,
       success: true,
-      message: "All users!",
-      total: allUsers.length,
+      message: `Total of ${allUsers.length} for page ${pageNumber + 1} found!`,
       data: allUsers,
     });
   } catch (error) {
