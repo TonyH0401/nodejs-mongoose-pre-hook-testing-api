@@ -72,6 +72,7 @@ module.exports.getAllUsers = async (req, res, next) => {
       .sort({ userFullName: 1 })
       .skip(skipDocs)
       .limit(docPerPage)
+      .exec();
     return res.status(200).json({
       code: 1,
       success: true,

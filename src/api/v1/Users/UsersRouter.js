@@ -11,7 +11,7 @@ const createError = require("http-errors");
 // --------------------------
 // Section: Custom Middlewares
 // --------------------------
-const { validateUser, createUser } = require("./UsersMiddleware");
+const { validateUser, createUser, getAllUsers } = require("./UsersMiddleware");
 
 // --------------------------
 // Section: Users Routers
@@ -24,6 +24,7 @@ router.route("/").get((req, res) => {
   });
 });
 router.route("/create").post(validateUser, createUser);
+router.route("/all").get(getAllUsers);
 
 // --------------------------
 // Section: Users Error Handlers
