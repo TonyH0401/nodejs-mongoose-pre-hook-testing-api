@@ -60,7 +60,16 @@ UsersSchema.pre("save", async function (next) {
         }
       }
     }
+    console.log("First .pre() hook");
     return next(); // this is different from 'next()', this will end the '.pre()' hook
+  } catch (error) {
+    return next(createError(500, error.message));
+  }
+});
+UsersSchema.pre("save", async function (next) {
+  try {
+    console.log("Second .pre() hook");
+    return next();
   } catch (error) {
     return next(createError(500, error.message));
   }
