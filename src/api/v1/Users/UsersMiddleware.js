@@ -114,31 +114,32 @@ module.exports.getUserById = async (req, res, next) => {
   }
 };
 
-// module.exports.patchUserById = async (req, res, next) => {
-//   const { userId } = req.params;
-//   const { userFullName, userEmail, userAge, userGender, militarySchoolName } =
-//     req.body;
-//   try {
-//     const userExist = await UsersModel.findById(userId).exec();
-//     if (!userExist)
-//       return next(createError(404, "User doesn't exist for modification!"));
-//     return res.status(201).json({
-//       code: 1,
-//     });
-//     userExist.userFullName = userFullName || userExist.userFullName;
-//     userExist.userEmail = userEmail || userExist.userEmail;
-//     userExist.userAge = userAge || userExist.userAge;
-//     userExist.userGender = userGender || userExist.userGender;
-//     userExist.militarySchoolName =
-//       militarySchoolName || userExist.militarySchoolName;
-//     await userExist.save();
-//     return res.status(200).json({
-//       code: 1,
-//       success: true,
-//       message: "User updated!",
-//       data: userExist,
-//     });
-//   } catch (error) {
-//     return next(createError(500, error.message));
-//   }
-// };
+module.exports.patchUserById = async (req, res, next) => {
+  const { userId } = req.params;
+  const { userFullName, userEmail, userAge, userGender, militarySchoolName } =
+    req.body;
+  try {
+    const userExist = await UsersModel.findById(userId).exec();
+    if (!userExist)
+      return next(createError(404, "User doesn't exist for modification!"));
+    userExist.userFullName = userFullName || userExist.userFullName;
+    userExist.userEmail = userEmail || userExist.userEmail;
+    userExist.userGender = userGender || userExist.userGender;
+    /* Implementing '.pre()' hook for 'userAge' and 'militarySchoolName'. 
+    If 'userAge' with a 'militarySchoolName' is updated to below 20 years old, the 'militarySchoolName' must be updated to 'null' value. */
+    userExist.userAge = userAge || userExist.userAge;
+    userExist.militarySchoolName =
+      militarySchoolName || userExist.militarySchoolName;
+    await userExist.save();
+    /* Basically, the whole update process above (where we have to make sure the model's properties are there) shouldn't happen
+    because properties's value are sure to be there in the 'req.body' before being sent to handle. */
+    return res.status(200).json({
+      code: 1,
+      success: true,
+      message: "User updated!",
+      data: userExist,
+    });
+  } catch (error) {
+    return next(createError(500, error.message));
+  }
+};
