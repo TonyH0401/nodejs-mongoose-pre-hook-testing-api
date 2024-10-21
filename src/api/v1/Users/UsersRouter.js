@@ -16,6 +16,7 @@ const {
   createUser,
   getAllUsers,
   getUserById,
+  patchUserById,
 } = require("./UsersMiddleware");
 
 // --------------------------
@@ -30,7 +31,10 @@ router.route("/").get((req, res) => {
 });
 router.route("/create").post(validateUser, createUser);
 router.route("/all").get(getAllUsers);
-router.route("/user/:userId").get(getUserById).patch();
+router
+  .route("/user/:userId")
+  .get(getUserById)
+  .patch(validateUser, patchUserById);
 
 // --------------------------
 // Section: Users Error Handlers
