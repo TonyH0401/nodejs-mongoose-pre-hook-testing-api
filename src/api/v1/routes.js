@@ -25,7 +25,7 @@ const { mongodb_conn } = require("../../database/mongoose");
 // --------------------------
 // User Routers: /api/v1/users/...
 const UsersRouter = require("./Users/UsersRouter");
-router.use("/users", UsersRouter);
+router.use("/users", limit10Req5Min, UsersRouter);
 
 // --------------------------
 // Section: Exports
