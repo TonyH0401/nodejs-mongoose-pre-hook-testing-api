@@ -11,6 +11,7 @@ const createError = require("http-errors");
 // --------------------------
 // Section: Custom Middlewares
 // --------------------------
+const { createPost } = require("./PostsMiddleware");
 
 // --------------------------
 // Section: Posts Routers
@@ -22,6 +23,7 @@ router.route("/").get((req, res) => {
     message: "Default branch 🥚 of /posts! ",
   });
 });
+router.route("/create").post(createPost);
 
 // --------------------------
 // Section: Books Error Handlers
