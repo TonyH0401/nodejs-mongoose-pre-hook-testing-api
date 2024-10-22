@@ -29,6 +29,9 @@ router.use("/users", limit10Req5Min, UsersRouter);
 // Book Routers: /api/v1/books/...
 const BooksRouter = require("./Books/BooksRouter");
 router.use("/books", BooksRouter);
+// Posts Routers: /api/v1/posts/...
+const PostsRouter = require("./Posts/PostsRouter");
+router.use("/posts", PostsRouter);
 
 // --------------------------
 // Section: Exports
