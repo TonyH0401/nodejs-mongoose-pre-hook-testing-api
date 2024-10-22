@@ -79,3 +79,25 @@ module.exports.getCommentById = async (req, res, next) => {
     return next(createError(500, error.message));
   }
 };
+
+module.exports.modifyCommentById = async (req, res, next) => {
+  const { commentId } = req.params;
+  const { changeContent } = req.body;
+  try {
+    const commentExist = await PostsModel.findOne({
+      "comments._id": commentId,
+    }).exec();
+    if (!commentExist) return next(createError(404, "Comment not found!"));
+    commentExist.comments.commentContent =
+      changeContent || commentExist.comments.commentContent;
+    await commentExist.save();
+    return res.status(200).json({
+      code: 1,
+      success: true,
+      message: "Comment updated!",
+      data: commentExist,
+    });
+  } catch (error) {
+    return next(createError(500, error.message));
+  }
+};
