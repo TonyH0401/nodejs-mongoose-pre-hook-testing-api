@@ -13,15 +13,15 @@ const { mongodb_conn } = require("../../../database/mongoose");
 // --------------------------
 const CommentsSchema = new Schema(
   {
-    content: { type: String },
-    date: { type: Date, default: Date.now },
+    commentContent: { type: String },
+    commentDate: { type: Date, default: Date.now },
   },
   { timestamps: true }
 );
 
 const PostsSchema = new Schema(
   {
-    title: { type: String },
+    postContent: { type: String },
     comments: CommentsSchema,
     // comments: [CommentsSchema],
   },
