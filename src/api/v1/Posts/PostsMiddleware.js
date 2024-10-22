@@ -61,3 +61,21 @@ module.exports.getComment = async (req, res, next) => {
     return next(createError(500, error.message));
   }
 };
+
+module.exports.getCommentById = async (req, res, next) => {
+  const { commentId } = req.params;
+  try {
+    const commentExist = await PostsModel.findOne({
+      "comments._id": commentId,
+    }).exec();
+    if (!commentExist) return next(createError(404, "No comment found!"));
+    return res.status(200).json({
+      code: 1,
+      success: true,
+      message: "Found comment!",
+      data: commentExist,
+    });
+  } catch (error) {
+    return next(createError(500, error.message));
+  }
+};

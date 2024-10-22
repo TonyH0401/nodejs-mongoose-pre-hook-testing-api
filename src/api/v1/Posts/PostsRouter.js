@@ -11,7 +11,7 @@ const createError = require("http-errors");
 // --------------------------
 // Section: Custom Middlewares
 // --------------------------
-const { createPost, getComment } = require("./PostsMiddleware");
+const { createPost, getComment, getCommentById } = require("./PostsMiddleware");
 
 // --------------------------
 // Section: Posts Routers
@@ -25,6 +25,7 @@ router.route("/").get((req, res) => {
 });
 router.route("/create").post(createPost);
 router.route("/comment/:commentParam").get(getComment);
+router.route("/comment2/:commentId").get(getCommentById);
 
 // --------------------------
 // Section: Books Error Handlers
