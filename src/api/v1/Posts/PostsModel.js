@@ -14,7 +14,7 @@ const { mongodb_conn } = require("../../../database/mongoose");
 const CommentsSchema = new Schema(
   {
     content: { type: String },
-    data: { type: Date, default: Date.now },
+    date: { type: Date, default: Date.now },
   },
   { timestamps: true }
 );
