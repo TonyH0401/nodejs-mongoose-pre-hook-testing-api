@@ -45,6 +45,21 @@ module.exports.createBook = async (req, res, next) => {
   }
 };
 
+module.exports.getBookByISBN = async (req, res, next) => {
+  const { isbn } = req.params;
+  try {
+    const bookExist = await BooksModel.findOne({ "bookCode.isbn": isbn });
+    if (!bookExist) return next(createError(404, "Book not found!"));
+    return res.status(200).json({
+      code: 1,
+      success: true,
+      data: bookExist,
+    });
+  } catch (error) {
+    return next(createError(500, error.message));
+  }
+};
+
 // module.exports.getAllUsers = async (req, res, next) => {
 //   const pageNumber = Number(req.query.page) || 0;
 //   const docPerPage = 3;

@@ -11,7 +11,7 @@ const createError = require("http-errors");
 // --------------------------
 // Section: Custom Middlewares
 // --------------------------
-const { createBook } = require("./BooksMiddleware");
+const { createBook, getBookByISBN } = require("./BooksMiddleware");
 
 // --------------------------
 // Section: Books Routers
@@ -24,6 +24,7 @@ router.route("/").get((req, res) => {
   });
 });
 router.route("/create").post(createBook);
+router.route("/book/:isbn").get(getBookByISBN);
 
 // --------------------------
 // Section: Books Error Handlers
