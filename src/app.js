@@ -29,6 +29,11 @@ const app = express();
 // --------------------------
 // Section: Application Usage Functions
 // --------------------------
+// app.use(express.static("public")); // this works, access at: localhost:8080/images/cat.jpeg
+// app.use("/static", express.static("public")); // this works, access at: localhost:8080/static/images/cat.jpeg
+// console.log(__dirname) // need to check the '__dirname' because 'app.js' and 'public/' are not on the same level
+// app.use(express.static(path.join(__dirname, "../public"))); // this works, access at: localhost:8080/images/cat.jpeg
+// app.use("/static", express.static(path.join(__dirname, "../public"))); // this works, access at: localhost:8080/static/images/cat.jpeg
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
